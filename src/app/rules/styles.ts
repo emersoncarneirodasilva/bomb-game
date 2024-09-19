@@ -37,4 +37,5 @@ export const Paragraph = styled.Text`
 
 export const NumberParagraph = styled.Text`
   font-weight: bold;
+  color: ${theme.colors.white};
 `;

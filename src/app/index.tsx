@@ -1,14 +1,14 @@
-import ButtonComponent from "../components/buttons";
-import { Container, Logo, Rules, SubTitle, Title } from "./styles";
+import { useEffect } from "react";
 import { router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { Container, Logo, Rules, SubTitle, Title } from "./styles";
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_500Medium,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
-import { useEffect } from "react";
+import ButtonComponent from "../components/Buttons";
 
 export default function Index() {
   const [fontsLoaded, error] = useFonts({
