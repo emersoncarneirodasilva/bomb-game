@@ -1,19 +1,43 @@
 import ButtonComponent from "../components/buttons";
 import { Container, Logo, Rules, SubTitle, Title } from "./styles";
 import { router } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_500Medium,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
+import { useEffect } from "react";
 
 export default function Index() {
+  const [fontsLoaded, error] = useFonts({
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, error]);
+
   const playAlone = () => {
-    alert("Ir para jogo solo");
+    router.push("/playAlone");
   };
 
-  const playInPairs = () => {
-    alert("Ir para jogo em dupla");
+  const playTogether = () => {
+    router.push("/playTogether");
   };
 
   const goToRules = () => {
     router.push("/rules");
   };
+
+  if (!fontsLoaded && !error) {
+    return null;
+  }
 
   return (
     <Container>
@@ -21,11 +45,13 @@ export default function Index() {
         source={require("../assets/images/logoDark.png")}
         style={{ resizeMode: "contain" }}
       />
-      <Title>Bem-vindo ao {"\n"}Bomb Game 💣</Title>
-      <SubTitle>Escolha um modo de jogo.</SubTitle>
+      <Title fontsLoaded={fontsLoaded}>Bem-vindo ao {"\n"}Bomb Game 💣</Title>
+      <SubTitle fontsLoaded={fontsLoaded}>Escolha um modo de jogo.</SubTitle>
       <ButtonComponent buttonText="Jogar Solo" handlePress={playAlone} />
-      <ButtonComponent buttonText="Jogar Em Dupla" handlePress={playInPairs} />
-      <Rules onPress={goToRules}>Ver as regras do jogo</Rules>
+      <ButtonComponent buttonText="Jogar Em Dupla" handlePress={playTogether} />
+      <Rules fontsLoaded={fontsLoaded} onPress={goToRules}>
+        Ver as regras do jogo
+      </Rules>
     </Container>
   );
 }
