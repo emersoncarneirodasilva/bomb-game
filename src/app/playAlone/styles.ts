@@ -33,7 +33,7 @@ export const TipContainer = styled.View`
 
 export const TipTitle = styled.Text`
   font-family: ${theme.fonts.bold};
-  font-size: ${RFValue(24)}px;
+  font-size: ${RFValue(20)}px;
   color: ${theme.colors.white};
 `;
 

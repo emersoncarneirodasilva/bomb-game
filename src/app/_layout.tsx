@@ -7,6 +7,8 @@ export default function RootLayout() {
       <Stack.Screen name="rules/index" />
       <Stack.Screen name="playAlone/index" />
       <Stack.Screen name="playTogether/index" />
+      <Stack.Screen name="disarmed/index" />
+      <Stack.Screen name="exploded/index" />
     </Stack>
   );
 }

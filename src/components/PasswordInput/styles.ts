@@ -12,7 +12,6 @@ export const Container = styled.View`
 export const InputContainer = styled.View`
   align-items: center;
   justify-content: center;
-  padding: ${RFValue(10)}px;
   border: 1px solid white;
   border-radius: 5px;
 `;
@@ -20,6 +19,8 @@ export const InputContainer = styled.View`
 export const Input = styled.TextInput<any>`
   text-align: center;
   font-size: ${RFValue(30)}px;
+  width: 100%;
+  padding: ${RFValue(10)}px;
   color: ${theme.colors.white};
   background-color: ${({ disabled }) =>
     disabled ? "#9999998c" : "transparent"};

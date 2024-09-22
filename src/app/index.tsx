@@ -49,6 +49,7 @@ export default function Index() {
       <SubTitle fontsLoaded={fontsLoaded}>Escolha um modo de jogo.</SubTitle>
       <ButtonComponent buttonText="Jogar Solo" handlePress={playAlone} />
       <ButtonComponent buttonText="Jogar Em Dupla" handlePress={playTogether} />
+
       <Rules fontsLoaded={fontsLoaded} onPress={goToRules}>
         Ver as regras do jogo
       </Rules>
