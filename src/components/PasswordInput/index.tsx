@@ -27,7 +27,6 @@ export default function PasswordInput({
     updatedPin[index] = text; // Atualiza o valor correspondente no array
     setPin(updatedPin);
 
-    // Foca no próximo campo de entrada, se existir
     if (text.length === 1 && nextInput.current) {
       nextInput.current.focus();
     }

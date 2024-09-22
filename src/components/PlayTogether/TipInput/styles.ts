@@ -13,6 +13,13 @@ export const TipTitle = styled.Text`
   color: ${theme.colors.white};
 `;
 
+export const TipText = styled.Text`
+  font-size: ${RFValue(16)}px;
+  font-family: ${theme.fonts.regular};
+  margin-top: ${RFValue(10)}px;
+  color: ${theme.colors.textLight};
+`;
+
 export const InputContainer = styled.View`
   align-items: center;
   justify-content: center;

@@ -34,6 +34,28 @@ interface giveUpGameProps {
   intervalId: NodeJS.Timeout | null;
 }
 
+interface BombActivationParams {
+  question: string;
+  pin: string[];
+  hours: string;
+  minutes: string;
+  seconds: string;
+  setMessage: (message: string) => void;
+  setStarted: (started: boolean) => void;
+  setPin: (pin: string[]) => void;
+  handleStartBomb: () => void;
+  setAnswer: (answer: string) => void;
+}
+
+interface bombDisarmTogetherProps {
+  pin: string[];
+  answer: string;
+  setStarted: (started: boolean) => void;
+  intervalId: NodeJS.Timeout | null;
+  setPin: (newPin: string[]) => void;
+  setAnswer: (answer: string) => void;
+}
+
 const formatTime = (duration: moment.Duration) => {
   const hoursDigits = duration.hours().toString().padStart(2, "0");
   const minutesDigits = duration.minutes().toString().padStart(2, "0");
@@ -142,6 +164,69 @@ const BombService = {
   giveUpGame: ({ intervalId }: giveUpGameProps) => {
     if (intervalId) clearInterval(intervalId);
     router.push("/exploded");
+  },
+
+  bombActivationTogether: ({
+    question,
+    pin,
+    hours,
+    minutes,
+    seconds,
+    setMessage,
+    setStarted,
+    setPin,
+    handleStartBomb,
+    setAnswer,
+  }: BombActivationParams) => {
+    // Verifica se há uma dica fornecida
+    if (!question.trim()) {
+      setMessage("Você precisa dar uma dica!");
+      return;
+    }
+
+    // Verifica se o PIN está completo (tamanho 4)
+    const pinString = pin.join("");
+    if (pinString.length !== 4) {
+      setMessage("Senha inválida, complete ela");
+      return;
+    }
+
+    // Verifica se o tempo foi definido corretamente
+    const timeIsSet = hours.trim() || minutes.trim() || seconds.trim();
+    if (!timeIsSet) {
+      setMessage("Timer inválido, coloque um tempo");
+      return;
+    }
+
+    // Se todos os dados estiverem corretos, inicia a bomba
+    setStarted(true);
+    setMessage(""); // Limpa a mensagem
+    handleStartBomb();
+    setAnswer(pinString);
+    setPin(["", "", "", ""]); // Reseta o PIN
+  },
+
+  bombDisarmTogether: ({
+    pin,
+    answer,
+    setStarted,
+    intervalId,
+    setPin,
+    setAnswer,
+  }: bombDisarmTogetherProps) => {
+    const isCorrectPin = pin.join("") === answer;
+
+    if (isCorrectPin) {
+      if (intervalId) clearInterval(intervalId);
+      setStarted(false);
+      router.push("/disarmed");
+    } else {
+      Vibration.vibrate(1000);
+    }
+
+    // Resetar o PIN e a resposta após a verificação
+    setPin(["", "", "", ""]);
+    setAnswer("");
   },
 };
 
